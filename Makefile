@@ -32,4 +32,4 @@ clean:
 	rm -f $(TARGET) $(TEST_TARGET) $(CSV_FILES) $(PNG_FILES)
 
 # Default rule (runs everything)
-all: $(TARGET) plot
+all: data plot

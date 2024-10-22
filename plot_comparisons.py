@@ -38,10 +38,10 @@ for k_type, color, marker in zip(['First', '25%', 'Median'], ['indianred', 'rebe
                 label=f'{k_type} Instances', color=color, alpha=alpha_value, marker=marker)
 
 # Then plot QuickSelect averages
-for k_type, color, marker in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal'], markers):
+for k_type, color in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal']):
     quick_avg = quick_grouped[quick_grouped['Kth'] == k_type]
     ax1.plot(quick_avg['ArraySize'], quick_avg['EmpiricalComparisons'], 
-             label=f'{k_type} Average', color=color, marker=marker, linewidth=2)
+             label=f'{k_type} Average', color=color, marker='o', linewidth=2)
 
 # Add expected comparisons
 ax1.plot(quick_grouped['ArraySize'].unique(), quick_grouped['ExpectedComparisons'].unique(), 
