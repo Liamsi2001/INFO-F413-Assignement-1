@@ -27,19 +27,21 @@ lazy_grouped = lazy_avg_df.groupby(['ArraySize', 'Kth']).agg({
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
 
 # Set transparency level for individual instances
-alpha_value = 0.6  # For lighter plotting of individual runs
+alpha_value = 0.5  # For lighter plotting of individual runs
+
+markers = ['o', 'x', '+']  # Different markers for 'First', '25%', 'Median'
 
 # Plot QuickSelect individual instances first
-for k_type, color in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal']):
+for k_type, color, marker in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal'], markers):
     quick_data = quick_df[quick_df['Kth'] == k_type]
     ax1.scatter(quick_data['ArraySize'], quick_data['EmpiricalComparisons'], 
-                label=f'{k_type} Instances', color=color, alpha=alpha_value, marker='x')
+                label=f'{k_type} Instances', color=color, alpha=alpha_value, marker=marker)
 
 # Then plot QuickSelect averages
-for k_type, color in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal']):
+for k_type, color, marker in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal'], markers):
     quick_avg = quick_grouped[quick_grouped['Kth'] == k_type]
     ax1.plot(quick_avg['ArraySize'], quick_avg['EmpiricalComparisons'], 
-             label=f'{k_type} Average', color=color, marker='o', linewidth=2)
+             label=f'{k_type} Average', color=color, marker=marker, linewidth=2)
 
 # Add expected comparisons
 ax1.plot(quick_grouped['ArraySize'].unique(), quick_grouped['ExpectedComparisons'].unique(), 
@@ -56,10 +58,10 @@ ax1.legend(loc='upper left')
 ax1.grid(True)
 
 # Plot LazySelect individual instances first
-for k_type, color in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal']):
+for k_type, color, marker in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal'], markers):
     lazy_data = lazy_df[lazy_df['Kth'] == k_type]
     ax2.scatter(lazy_data['ArraySize'], lazy_data['EmpiricalComparisons'], 
-                label=f'{k_type} Instances', color=color, alpha=alpha_value, marker='x')
+                label=f'{k_type} Instances', color=color, alpha=alpha_value, marker=marker)
 
 # Then plot LazySelect averages
 for k_type, color in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal']):
@@ -89,10 +91,10 @@ plt.savefig('comparison_plots.png', dpi=300)
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
 
 # Plot QuickSelect running times for individual instances first
-for k_type, color in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal']):
+for k_type, color, marker in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal'], markers):
     quick_data = quick_df[quick_df['Kth'] == k_type]
     ax1.scatter(quick_data['ArraySize'], quick_data['RunningTime(us)'], 
-                label=f'{k_type} Instances', color=color, alpha=alpha_value, marker='x')
+                label=f'{k_type} Instances', color=color, alpha=alpha_value, marker=marker)
 
 # Then plot QuickSelect averages
 for k_type, color in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal']):
@@ -111,10 +113,10 @@ ax1.legend(loc='upper left')
 ax1.grid(True)
 
 # Plot LazySelect running times for individual instances first
-for k_type, color in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal']):
+for k_type, color, marker in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal'], markers):
     lazy_data = lazy_df[lazy_df['Kth'] == k_type]
     ax2.scatter(lazy_data['ArraySize'], lazy_data['RunningTime(us)'], 
-                label=f'{k_type} Instances', color=color, alpha=alpha_value, marker='x')
+                label=f'{k_type} Instances', color=color, alpha=alpha_value, marker=marker)
 
 # Then plot LazySelect averages
 for k_type, color in zip(['First', '25%', 'Median'], ['indianred', 'rebeccapurple', 'teal']):

@@ -25,7 +25,7 @@ void QuickSelect::randomizedQuickselect(int arr[], int low, int high, int k) {
     }
 }
 
-// Optimized partitioning
+// Optimized partitioning with reduced comparisons
 int QuickSelect::randomizedPartition(int arr[], int low, int high) {
     int pivotIndex = getRandomPivot(low, high);
     swap(&arr[pivotIndex], &arr[high]); // Move pivot to end
@@ -40,17 +40,17 @@ int QuickSelect::randomizedPartition(int arr[], int low, int high) {
                 sorted = false;
             }
             i++;
-            swap(&arr[i], &arr[j]);
-        }
-        if (sorted && arr[j] > pivot) { // Early exit: stop if the remaining array is sorted
-            break;
+            if (i != j) { // Avoid unnecessary swaps (i and j are same when no swap is needed)
+                swap(&arr[i], &arr[j]);
+            }
+        } else if (sorted && arr[j] > pivot) {
+            break; // Early exit if array is sorted
         }
     }
     swap(&arr[i + 1], &arr[high]); // Place pivot in correct position
 
     return i + 1; // Return pivot index
 }
-
 
 // Random pivot selection
 int QuickSelect::getRandomPivot(int low, int high) {
@@ -61,7 +61,9 @@ int QuickSelect::getRandomPivot(int low, int high) {
 }
 
 void QuickSelect::swap(int* a, int* b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+    if (a != b) { // Only swap if the two elements are different
+        int temp = *a;
+        *a = *b;
+        *b = temp;
+    }
 }
